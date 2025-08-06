@@ -2,7 +2,7 @@
 
 ![Mimi Screenshot](images/mimi2.jpg)
 
-Mimi is a real-time, voice-interactive AI assistant for food discovery. Built with SAIDF (Smart AI Data Filtering), Gemini voice models, and a modern full-stack framework, Mimi helps users effortlessly explore menus, filter based on preferences, and receive friendly voice recommendations—just like talking to a real food stylist!
+Mimi is a real-time, voice-interactive AI assistant for food discovery. Built with SAIDF (Smart AI Data Filtering), Gemini voice models, and a modern full-stack framework, Mimi helps users effortlessly explore menus, filter based on preferences, and receive friendly voice recommendations just like talking to a real food stylist!
 
 ---
 
