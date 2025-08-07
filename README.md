@@ -11,6 +11,13 @@ Mimi is a real-time, voice-interactive AI assistant for food discovery. Built wi
 Try Mimi live at [talk-to-mimi.vercel.app](https://talk-to-mimi.vercel.app)!
 
 ---
+---
+
+## 📰 Data Flow Diagram
+
+![Mimi DFD](images/mimi_dfd.jpg)
+
+---
 
 ## ⚙️ Installation & Setup
 

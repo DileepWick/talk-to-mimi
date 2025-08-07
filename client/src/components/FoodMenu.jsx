@@ -13,8 +13,8 @@ import {
   Clock,
   Search,
 } from "lucide-react";
-import { getAllFoods } from "../services/foodService";
-import Mimi from "./EnhancedVoiceTester";
+import { getAllFoods } from "../services/foodService.js";
+import Mimi from "./MimiInterface.jsx";
 
 const AllFoods = () => {
   const [foods, setFoods] = useState([]);

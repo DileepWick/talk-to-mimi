@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
-import { WSS_URL, BASE_URL } from "../config/constant";
+import { WSS_URL, BASE_URL } from "../config/constant.js";
 import useAudioCollector from "../utils/audioChunkCollection.js";
 import  mimi from "../assets/mimi2.jpg"
 import axios from "axios";
@@ -25,10 +25,9 @@ import MobileInputModal from "./MobileInputModal.jsx";
 import { UI_CONFIG } from "../config/voice-chat.js";
 import VoiceAgentWidget from "./VoiceAgentInterface.jsx";
 
-const EnhancedVoiceTester = ({onDataReceived}) => {
+const MimiInterface = ({onDataReceived}) => {
   const [clientId, setClientId] = useState(null);
   const [sessionId, setSessionId] = useState(null);
-  const [message, setMessage] = useState("");
   const [log, setLog] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState("Connecting...");
@@ -175,49 +174,6 @@ const EnhancedVoiceTester = ({onDataReceived}) => {
     }
   }, []);
 
-  // Start listening wrapper
-  const startListeningWrapper = useCallback(async () => {
-    if (!clientId) {
-      setError("WebSocket not connected. Please wait for connection.");
-      return;
-    }
-
-    if (isMobile) {
-      setShowMobileInput(true);
-      return;
-    }
-
-    if (isPlaying) {
-      stopAllAudio();
-    }
-
-    setHasUserGesture(true);
-    setCurrentTranscript("");
-    setInterimTranscript("");
-    setLastUserMessage("");
-    setShowTranscript(false);
-    setError("");
-    setIsProcessing(false);
-
-    try {
-      await initializeAudioContextWrapper();
-      await initializeVAD(isMobile);
-      await startListening(clientId, currentTranscript, isProcessing);
-    } catch (error) {
-      console.error("Failed to start listening:", error);
-      setError("Failed to start voice input");
-    }
-  }, [
-    clientId,
-    isMobile,
-    isPlaying,
-    currentTranscript,
-    isProcessing,
-    stopAllAudio,
-    initializeAudioContextWrapper,
-    initializeVAD,
-    startListening,
-  ]);
 
   // Handle mobile text input
   const handleMobileSubmit = useCallback(
@@ -235,23 +191,6 @@ const EnhancedVoiceTester = ({onDataReceived}) => {
     },
     [logMessage, sendVoiceQuery]
   );
-
-  // Handle manual text input
-  const handleSendMessage = useCallback(async () => {
-    if (!message.trim()) {
-      alert("Please enter a message");
-      return;
-    }
-
-    if (!clientId) {
-      alert("WebSocket not connected or clientId not received");
-      return;
-    }
-
-    await sendVoiceQuery(message.trim());
-    console.log("Message sent via handleSendMessage in EnhancedVoiceTester :", message);
-    setMessage("");
-  }, [message, clientId, sendVoiceQuery]);
 
   // Handle audio blob
   const handleAudioBlob = useCallback(async (blob) => {
@@ -375,27 +314,6 @@ const EnhancedVoiceTester = ({onDataReceived}) => {
     cleanupVAD,
   ]);
 
-  // Handle key press
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSendMessage();
-    }
-  };
-
-  // Send ping
-  const sendPing = () => {
-    if (wsRef.current?.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify({ type: "ping" }));
-      logMessage("🏓 Ping sent");
-    } else {
-      logMessage("❌ WebSocket not connected");
-    }
-  };
-
-  // Clear log
-  const clearLog = () => {
-    setLog([]);
-  };
 
   return (
     <>
@@ -427,4 +345,4 @@ const EnhancedVoiceTester = ({onDataReceived}) => {
   );
 };
 
-export default EnhancedVoiceTester;
+export default MimiInterface;
