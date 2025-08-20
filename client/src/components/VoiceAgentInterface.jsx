@@ -163,6 +163,7 @@ const VoiceAgentWidget = ({
     [clientId, sessionId, logMessage, stopAllAudio, isMobile],
   )
 
+  // Speech Recognition
   const { startListening, stopListening } = useSpeechRecognition(
     setIsListening,
     setError,
